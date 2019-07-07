@@ -4,7 +4,7 @@ const router = express.Router();
 //const emailValidator = require('email-validator');
 //const multer = require('multer');
 const {User ,validate} = require('../models/usermodel');
-const {swaggerSpec} = require('../index');
+
 
 
 /*
@@ -25,12 +25,7 @@ async function createuser (){
 createuser();
 */
 
-router.get('/swagger.json',function(req,res) {
-    //res.setHeader('Content-Type','application.json');
-    //res.send(swagger);
-    console.log('taghrid');
-    console.log(swaggerSpec);
-});
+
 
 router.get('/', async (req,res) =>{
     const users = await User.find();
@@ -82,5 +77,5 @@ router.get('/:id', async (req,res) =>{
     res.send(Retuser);
 });
 
-module.exports = router;
-module.exports.userclass = User ;
+module.exports.router = router;
+module.exports.User = User ;

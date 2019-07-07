@@ -1,6 +1,6 @@
 const config = require('config');
 const mongoose = require('mongoose');
-const users = require('./routes/users');
+const { router, User} = require('./routes/users');
 const auth = require('./routes/auth');
 const express = require('express');
 const swaggerJSDoc = require('swagger-jsdoc');
@@ -29,16 +29,25 @@ var options = {
 const swaggerSpec = swaggerJSDoc(options);
 
 
-app.use('/api/users',users);
+app.use('/api/users',User);
 app.use('/api/auth', auth);
 
 mongoose.connect('mongodb://localhost/Task')
     .then(() => console.log('database is connected'))
     .catch(err => console.log('there is an error in connection',err));
 
-    
+
+app.get('/api/swagger.json',function(req,res) {
+    res.setHeader('Content-Type','applicationj/son');
+    res.send(swaggerSpec);
+    //console.log('taghrid');
+    //console.log(swaggerSpec);
+});
+  
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port `));
 
 module.exports.app = app;
-module.exports.swaggerSpec = swaggerSpec;
+//module.exports.swaggerSpec = swaggerSpec;
+console.log("l");
